@@ -2,8 +2,11 @@ package com.gustavo.cursomc.dominio;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+
 import com.gustavo.cursomc.dominio.enums.EstadoPagamento;
 
+@Entity
 public class PagamentoComBoleto extends Pagamento {
 	private static final long serialVersionUID = 1L;
 
