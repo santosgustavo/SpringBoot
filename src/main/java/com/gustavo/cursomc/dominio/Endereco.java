@@ -6,6 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Endereco implements Serializable{
@@ -20,15 +24,20 @@ public class Endereco implements Serializable{
 	private String bairro;
 	private String cep;
 	
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
 	
+	@ManyToOne
+	@JoinColumn(name="cidade_id")
 	private Cidade cidade;
 	
 	public Endereco() {
 		
 	}
 
-	public Endereco(Integer id, String logadouro, String numero, String complemento, String bairro, String cep,Cidade cidade) {
+	public Endereco(Integer id, String logadouro, String numero, String complemento, String bairro, String cep,Cidade cidade, Cliente cliente) {
 		super();
 		this.id = id;
 		this.logadouro = logadouro;
@@ -95,6 +104,16 @@ public class Endereco implements Serializable{
 		this.cidade = cidade;
 	}
 
+	
+	
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -118,6 +137,12 @@ public class Endereco implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Endereco [id=" + id + ", logadouro=" + logadouro + ", numero=" + numero + ", complemento=" + complemento
+				+ ", bairro=" + bairro + ", cep=" + cep + ", cliente=" + cliente + ", cidade=" + cidade + "]";
 	}
 	
 	
