@@ -117,7 +117,7 @@ public class CursomcApplication implements CommandLineRunner {
 		
 		cli1.getPedidos().addAll(Arrays.asList(ped1,ped2));
 		
-		categoriaRepositorie.save(Arrays.asList(cat1, cat2));
+		/*categoriaRepositorie.save(Arrays.asList(cat1, cat2));
 		produtoRepository.save(Arrays.asList(p1,p2,p3));
 		estadoRespository.save(Arrays.asList(est1,est2));
 		cidadeRepository.save(Arrays.asList(c1,c2,c3));
@@ -126,7 +126,7 @@ public class CursomcApplication implements CommandLineRunner {
 		enderecoRepository.save(Arrays.asList(e1, e2));
 		
 		pedidoRepository.save(Arrays.asList(ped1,ped2));
-		pagamentoRepository.save(Arrays.asList(pagto1,pagto2));
+		pagamentoRepository.save(Arrays.asList(pagto1,pagto2));*/
 		
 		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
 		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
@@ -139,7 +139,7 @@ public class CursomcApplication implements CommandLineRunner {
 		p2.getItens().addAll(Arrays.asList(ip3));
 		p3.getItens().addAll(Arrays.asList(ip2));
 		
-		itemPedidoRepository.save(Arrays.asList(ip1,ip2,ip3));
+		/*itemPedidoRepository.save(Arrays.asList(ip1,ip2,ip3));*/
 		
 	}
 }
