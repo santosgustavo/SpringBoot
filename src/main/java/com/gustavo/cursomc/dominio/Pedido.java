@@ -62,6 +62,14 @@ public class Pedido implements Serializable{
 	public Cliente getCliente() {
 		return cliente;
 	}
+		
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
+	}
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;

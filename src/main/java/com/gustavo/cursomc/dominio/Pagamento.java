@@ -14,13 +14,12 @@ import com.gustavo.cursomc.dominio.enums.EstadoPagamento;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-public class Pagamento implements Serializable {
+public abstract class Pagamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	private Integer id;
-	private EstadoPagamento estado;
-	private Pagamento pagamento;
+	private Integer estado;
 	
 	@OneToOne
 	@JoinColumn(name="pedido_id")
@@ -32,11 +31,10 @@ public class Pagamento implements Serializable {
 		
 	}
 
-	public Pagamento(Integer id, EstadoPagamento estado, Pagamento pagamento, Pedido pedido) {
+	public Pagamento(Integer id, EstadoPagamento estado,Pedido pedido) {
 		super();
 		this.id = id;
-		this.estado = estado;
-		this.pagamento = pagamento;
+		this.estado = estado.getCod();
 		this.pedido = pedido;
 	}
 
@@ -49,19 +47,11 @@ public class Pagamento implements Serializable {
 	}
 
 	public EstadoPagamento getEstado() {
-		return estado;
+		return EstadoPagamento.toEnum(estado);
 	}
 
 	public void setEstado(EstadoPagamento estado) {
-		this.estado = estado;
-	}
-
-	public Pagamento getPagamento() {
-		return pagamento;
-	}
-
-	public void setPagamento(Pagamento pagamento) {
-		this.pagamento = pagamento;
+		this.estado = estado.getCod();
 	}
 
 	public Pedido getPedido() {
@@ -78,7 +68,6 @@ public class Pagamento implements Serializable {
 		int result = 1;
 		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((pagamento == null) ? 0 : pagamento.hashCode());
 		result = prime * result + ((pedido == null) ? 0 : pedido.hashCode());
 		return result;
 	}
@@ -98,11 +87,6 @@ public class Pagamento implements Serializable {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
-			return false;
-		if (pagamento == null) {
-			if (other.pagamento != null)
-				return false;
-		} else if (!pagamento.equals(other.pagamento))
 			return false;
 		if (pedido == null) {
 			if (other.pedido != null)
