@@ -13,7 +13,7 @@ public class ValidationError extends StandardError {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<FieldMessage> getList() {
+	public List<FieldMessage> getErrors() {
 		return list;
 	}
 
