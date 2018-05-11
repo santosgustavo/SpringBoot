@@ -6,16 +6,16 @@ public class FieldMessage implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private String fieldName;
-	private String meddage;
+	private String message;
 	
 	public FieldMessage() {
 		
 	}
 
-	public FieldMessage(String fieldName, String meddage) {
+	public FieldMessage(String fieldName, String message) {
 		super();
 		this.fieldName = fieldName;
-		this.meddage = meddage;
+		this.message = message;
 	}
 
 	public String getFieldName() {
@@ -26,12 +26,12 @@ public class FieldMessage implements Serializable{
 		this.fieldName = fieldName;
 	}
 
-	public String getMeddage() {
-		return meddage;
+	public String getMessage() {
+		return message;
 	}
 
-	public void setMeddage(String meddage) {
-		this.meddage = meddage;
+	public void setMessage(String message) {
+		this.message = message;
 	}
 	
 	
