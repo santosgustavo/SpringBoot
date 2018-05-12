@@ -13,40 +13,39 @@ import org.springframework.web.servlet.HandlerMapping;
 
 import com.gustavo.cursomc.dominio.Cliente;
 import com.gustavo.cursomc.dominio.enums.TipoCliente;
+import com.gustavo.cursomc.dto.ClienteDTO;
 import com.gustavo.cursomc.dto.ClienteNewDTO;
 import com.gustavo.cursomc.resource.exceptions.FieldMessage;
 import com.gustavo.cursomc.service.validation.utils.BR;
 
 import br.com.gustavo.cursomc.repositories.ClienteRepository;
 
-public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDTO> {
+public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO> {
+
+	@Autowired
+	HttpServletRequest request;
 	
 	@Autowired
 	private ClienteRepository repo;
 	
 	@Override
-	public void initialize(ClienteInsert ann) {
+	public void initialize(ClienteUpdate ann) {
 		
 	}
 
 	@Override
-	public boolean isValid(ClienteNewDTO objDto, ConstraintValidatorContext context) {
-
+	public boolean isValid(ClienteDTO objDto, ConstraintValidatorContext context) {
+		
+		Map<String, String> map = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+		Integer uriId = Integer.parseInt( map.get("id"));
+		
 		List<FieldMessage> list = new ArrayList<>();
-
-		if(objDto.getTipo().equals(TipoCliente.PESSOAFISICA.getCod()) && !BR.isValidCpf(objDto.getCpfOuCnpj())) {
-			list.add(new FieldMessage("cpfOuCnpj", "CPF inválido"));
-		}
-		if(objDto.getTipo().equals(TipoCliente.PESSOAJURIDICA.getCod()) && !BR.isValidCnpj(objDto.getCpfOuCnpj())) {
-			list.add(new FieldMessage("cpfOuCnpj", "CNPJ inválido"));
-		}
 		
 		Cliente aux = repo.findByEmail(objDto.getEmail());
-		if(aux != null) {
+		if(aux != null && !aux.getId().equals(uriId)) {
 			list.add(new FieldMessage("email","Email já existe"));
 		}
 				
-		
 		for (FieldMessage e : list) {
 			context.disableDefaultConstraintViolation();
 			context.buildConstraintViolationWithTemplate(e.getMessage()).addPropertyNode(e.getFieldName())

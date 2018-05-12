@@ -15,13 +15,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.Cascade;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gustavo.cursomc.dominio.enums.TipoCliente;
 
 @Entity
+@Transactional
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
